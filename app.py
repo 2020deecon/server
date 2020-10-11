@@ -1,8 +1,5 @@
 from flask import Flask,request,jsonify,abort
 import flask
-import requests
-import xmltodict
-import platform
 import pymongo
 from pymongo import MongoClient
 import base64
