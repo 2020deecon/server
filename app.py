@@ -24,10 +24,10 @@ def regiser():
     
     user_id=request.args.get('id')
     pw=request.args.get('pw')
-    birth=request.args.get('birth')
+    email=request.args.get('email')
     name=request.args.get('name')
     
-    if user_id==None or pw==None or birth==None or name==None:
+    if user_id==None or pw==None or email==None or name==None:
         return jsonify(message='매개변수가 비어있습니다',code=400)
    
     for i in auth.find({'id':user_id}):
@@ -36,7 +36,7 @@ def regiser():
     if birth.isdigit()==False:
         return jsonify(message="birth is must type int",code=400)
 
-    auth.insert({'birth':birth, "name":name,"id": user_id,"pw":base64.b64encode(pw.encode('euc-kr'))})
+    auth.insert({'email':email, "name":name,"id": user_id,"pw":base64.b64encode(pw.encode('euc-kr'))})
     return jsonify(message="complete",code=200)
 
     
