@@ -1,15 +1,12 @@
 from flask import Flask,request,jsonify,abort,Blueprint
-import pymongo
-from pymongo import MongoClient
 import base64
-import random
 from db import db
-
+import jwt
+from datetime import datetime, timedelta
 auth_api = Blueprint('auth',__name__,url_prefix='/')
 auth_db=db['auth']
-
-
-
+auth_api.config = {}
+auth_api.config['JWT_SECRET_KEY']='alswns0221'
 
 @auth_api.route('/register',methods=['POST'])
 def regiser():
@@ -42,9 +39,14 @@ def login():
     for i in a:
         print(i)
         if i['pw']==base64.b64encode(pw.encode('euc-kr')):
-            
-            jsons={'name':i['name']}
-            return jsonify(code=200,message="seccess",data=jsons)
+            payload={
+                'user_id':user_id,
+                'exp':datetime.utcnow() + timedelta(seconds = 60 * 60 * 24),
+            }
+            #
+            token=jwt.encode(payload,auth_api.config['JWT_SECRET_KEY'],'HS256')
+
+            return jsonify(code=200,message="seccess",acces_token=token.decode('UTF-8'))
         else:
             return jsonify(code=403,message='login fail')
 

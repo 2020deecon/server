@@ -4,6 +4,7 @@ from auth import auth_api
 from problem import problem_api
 from flask_cors import  CORS, cross_origin
 
+
 app = Flask(__name__)
 # app.logger.setLevel(logging.ERROR)
 app.register_blueprint(auth_api)
