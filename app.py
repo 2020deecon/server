@@ -11,7 +11,7 @@ app.register_blueprint(problem_api)
 
 
 
-@app.route('/')
+@app.route('/', methods=["GET", "DELETE", "OPTIONS"])
 def index():
     my_res = flask.Response()
  
