@@ -5,7 +5,6 @@ from pymongo import MongoClient
 import base64
 import random
 from db import db
-from PIL import Image
 
 problem_api = Blueprint('problem',__name__,url_prefix='/')
 problem_db=db['problem']
@@ -27,6 +26,5 @@ def problem():
     if title==None or sub_title==None or sub_title==None or answer==None or category==None:
         return jsonify(message='매개변수가 비어있습니다',code=400)
     problem_db.insert({'title':title, "sub_title":sub_title,"image": image,"answer":answer,'category':category})
-    im = Image.open(BytesIO(base64.b64decode(image)))
-    im.save('image.png', 'PNG')
+    
     return jsonify(message='success',code=200)
