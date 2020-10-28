@@ -11,6 +11,7 @@ auth_api.config['JWT_SECRET_KEY']='alswns0221'
 @auth_api.route('/register',methods=['POST'])
 def regiser():
     data=request.get_json()
+    
     user_id=data.get('id')
     pw=data.get('pw')
     email=data.get('email')
@@ -23,17 +24,17 @@ def regiser():
     for i in auth_db.find({'id':user_id}):
         return jsonify(message='이미 있는 아이디 입니다',code= 403)   
 
-    
-
     auth_db.insert({'email':email, "name":name,"id": user_id,"pw":base64.b64encode(pw.encode('euc-kr'))})
     return jsonify(message="success",code=200)
 
     
 @auth_api.route('/auth',methods=['POST'])
 def login():
-    data=request.data.decode('utf-8')
-    user_id=request.args.get('id')
-    pw=request.args.get('pw')
+
+    data=request.get_json()
+
+    user_id=data.get('id')
+    pw=data.get('pw')
 
     a=auth_db.find({'id':user_id})
     for i in a:
