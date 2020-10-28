@@ -10,11 +10,11 @@ auth_api.config['JWT_SECRET_KEY']='alswns0221'
 
 @auth_api.route('/register',methods=['POST'])
 def regiser():
-    
-    user_id=request.data.get('id')
-    pw=request.data.get('pw')
-    email=request.data.get('email')
-    name=request.data.get('name')
+    data=request.get_json()
+    user_id=data.get('id')
+    pw=data.get('pw')
+    email=data.get('email')
+    name=data.get('name')
     
     # request.data
     if user_id==None or pw==None or email==None or name==None:
