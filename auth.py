@@ -11,11 +11,12 @@ auth_api.config['JWT_SECRET_KEY']='alswns0221'
 @auth_api.route('/register',methods=['POST'])
 def regiser():
     
-    user_id=request.args.get('id')
-    pw=request.args.get('pw')
-    email=request.args.get('email')
-    name=request.args.get('name')
+    user_id=request.data.get('id')
+    pw=request.data.get('pw')
+    email=request.data.get('email')
+    name=request.data.get('name')
     
+    # request.data
     if user_id==None or pw==None or email==None or name==None:
         return jsonify(message='매개변수가 비어있습니다',code=400)
    
@@ -31,10 +32,9 @@ def regiser():
 @auth_api.route('/auth',methods=['POST'])
 def login():
     data=request.data.decode('utf-8')
-    
-    
     user_id=request.args.get('id')
     pw=request.args.get('pw')
+
     a=auth_db.find({'id':user_id})
     for i in a:
         print(i)
