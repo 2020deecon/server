@@ -47,7 +47,7 @@ def login():
             #
             token=jwt.encode(payload,auth_api.config['JWT_SECRET_KEY'],'HS256')
 
-            return jsonify(code=200,message="seccess",acces_token=token.decode('UTF-8'))
+            return jsonify(code=200,message="seccess",access_token=token.decode('UTF-8'))
         else:
             return jsonify(code=403,message='login fail')
 
