@@ -15,16 +15,20 @@ problem_db=db['problem']
 def problem(user):
     print(user.get('email'))
     try:
-        title=request.args.get('title')
-        sub_title=request.args.get('sub_title')
-        image=request.args.get('image')
         # image=request.files['image']
+
+        title=request.args.get('title')
+        problem_type=request.args.get('type')
         answer=request.args.get('answer')
         category=request.args.get('category')
+        
+        sub_title=request.args.get('sub_title')
+        image=request.args.get('image')
+
     except Exception as e:
         return jsonify(error=str(e),message='server error',code=400)
     
-    if title==None or sub_title==None or sub_title==None or answer==None or category==None:
+    if title==None or problem_type==None or answer==None or category==None:
         return jsonify(message='매개변수가 비어있습니다',code=400)
     problem_db.insert({'email':user.get('email'),'title':title, "sub_title":sub_title,"image": image,"answer":answer,'category':category})
     
