@@ -3,10 +3,24 @@ import base64
 from db import db
 import jwt
 from datetime import datetime, timedelta
+from Decorator import login_required
+
 auth_api = Blueprint('auth',__name__,url_prefix='/')
 auth_db=db['auth']
 auth_api.config = {}
 auth_api.config['JWT_SECRET_KEY']='alswns0221'
+
+@auth_api.route('/user',methods=['GET'])
+@login_required
+def get_id(data):
+    print('아이디는?!?!?')
+    print('\n'+data)
+    user_id=data.get('id')
+    print(data['id'])
+    if user_id!=None:
+        return jsonfy(code=200,id=user_id,data=data)
+    else:
+        return jsonfy(code=400)
 
 @auth_api.route('/register',methods=['POST'])
 def regiser():

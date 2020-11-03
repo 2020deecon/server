@@ -1,9 +1,9 @@
 import jwt
-from auth import auth_api
 from functools  import wraps
 from flask 		import request, Response ,jsonify
 from db import db
 auth=db['auth']
+config='alswns0221'
 def login_required(f):     
     user_info=[] 
     def get_user(user_id):
@@ -18,7 +18,7 @@ def login_required(f):
         if access_token is not None:  							# 4)
             try:    
                 print(access_token)
-                payload = jwt.decode(access_token, auth_api.config['JWT_SECRET_KEY'], algorithms=['HS256'])			   # 5)
+                payload = jwt.decode(access_token, config, algorithms=['HS256'])			   # 5)
             except jwt.InvalidTokenError as e:
                 payload = None   
 
