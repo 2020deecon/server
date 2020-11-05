@@ -8,15 +8,15 @@ comunity_api = Blueprint('comunity',__name__,url_prefix='/')
 comunity_db=db['comunity']
 comment_db=db['comment']
 
-def getDateTime():
+def getDateTime() -> int:
 
     dt_obj = datetime.strptime('20.12.2016 09:38:42,76',
                             '%d.%m.%Y %H:%M:%S,%f')
-    # millisec = dt_obj.timestamp() * 1000
+    millisec = dt_obj.timestamp() * 1000
 
-    # print(int(millisec))
+    print(int(millisec))
 
-    return dt_obj
+    return int(millisec)
 
 @comunity_api.route('/makePost',methods=['POST'])
 @login_required
@@ -33,9 +33,8 @@ def makePost(data):
     post_type=data.get('type')
     if title==None or image==None or text==None:
         return jsonify(code=400,message='매개변수가 비었습니다')
-    # time=getDateTime()
-    # print(time)
-    comunity_db.insert({'type':post_type,'write_id':user_id,'title':title,'image':image,'text':text})
+    comunity_db.insert({'type':post_type,'write_id':user_id,'time':,'title':title,'image':image,'text':text})
+    return jsonify(code=200,message='성공')
 
 @comunity_api.route('/sendPost',methods=['GET'])
 def sendPost():
@@ -78,7 +77,7 @@ def detailPost():
         post_dict['id']=str(i['_id'])
         post_dict['title']=i['title']
         post_dict['text']=i['text']
-        # post_dict['time']=i['time']
+        post_dict['time']=i['time']
         post_list.append(post_dict)
     return jsonify(code=200,data=post_dict)
 
@@ -99,9 +98,8 @@ def makeComment(data):
     project_id=data.get('project_id')
 
     if user_name==None or comment ==None or project_id==None:
-        return jsonify(code=400,message='매개변수가 비었습니다')           
-        #,'time':getDateTime() 
-    comunity_db({'comment':comment,'writer':user_id,'project_id':project_id})    
+        return jsonify(code=400,message='매개변수가 비었습니다')            
+    comunity_db({'comment':comment,'writer':user_id,'project_id':project_id,'time':getDateTime()})    
 
     
 
