@@ -100,8 +100,12 @@ def myProblem(data):
     return jsonify(code=200,data=problem_list)
         
 @problem_api.route('/workbookProblem',methods=['POST'])
-def workbookProblem():
+@login_required
+def workbookProblem(user):
+    if user==None:
+        return jsonify(code=400,message='check token')
     data=request.get_json()
+    user_id=user.get('id')
 
     title=data.get('title')
     category=data.get('category')
@@ -109,12 +113,16 @@ def workbookProblem():
     if title==None or category==None or problem_id==None:
         return jsonify(code=400,message='매개변수가 비어있습니다')
     
-    workbook_db.insert({'title':title,'category':category,'problem_id':problem_id})
+    workbook_db.insert({'title':title,'user_id':user_id,'category':category,'problem_id':problem_id})
     return jsonify(code=200,message='성공')
 
 @problem_api.route('/sendWorkbook',methods=['GET'])
-def sendWorkbook():
-    workbooks=workbook_db.find()
+@login_required
+def sendWorkbook(user):
+    if user==None:
+        return jsonify(code=400,message='check token')
+    user_id=user.get('id')
+    workbooks=workbook_db.find({'user_id':user_id})
     workbook_list=[]
     for workbook in workbooks:
         workbook_dict={}
