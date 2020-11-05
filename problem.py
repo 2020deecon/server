@@ -155,7 +155,7 @@ def detailWorkbook():
             j['_id']=str(j['_id'])
             problem_list.append(j)
     
-    return jsonify(code=200,data=problem_list)
+    return jsonify(code=200,data={'problems':problem_list,'title':workbook['title']})
         
 
 
