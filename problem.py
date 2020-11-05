@@ -44,14 +44,19 @@ def send_problem():
     problems=problem_db.find({})
     print(problems)
     for problem in problems:
-        print(problem)
+        data=dict()
+
         problem=dict(problem)
         object_id=problem.get('_id')
-
         object_id=str(object_id)
         problem['_id']=object_id
         problem['category']=problem['category'].encode('euc-kr').decode('euc-kr')
-        problem_list.append(problem)
+
+        data['_id']=object_id
+        data['image']=problem['image']
+        data['title']=problem['title']
+
+        problem_list.append(data)
         
 
     return jsonify(code=200,data=problem_list )
