@@ -17,6 +17,7 @@ def problem(user):
     try:
         # image=request.files['image']
         data=request.get_json()
+        print(data)
         if data==None:
             data={}
         title=data.get('title')
@@ -29,9 +30,7 @@ def problem(user):
 
     except Exception as e:
         return jsonify(error=str(e),message='server error',code=400)
-    if image!=None:
-        f=open('./image.jpg','w')
-        f.write(base64.b64decode(image))
+    
     if title==None or problem_type==None or answer==None or category==None:
         return jsonify(message='매개변수가 비어있습니다',code=400)
     problem_db.insert({'id':user.get('id'),'title':title, "sub_title":sub_title,"image": image,"answer":answer,'category':category})
@@ -50,3 +49,4 @@ def send_problem():
         
         
     
+a
