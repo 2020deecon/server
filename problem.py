@@ -32,7 +32,6 @@ def problem(user):
     if image!=None:
         f=open('./image.jpg','w')
         f.write(base64.b64decode(image))
-        print('test')
     if title==None or problem_type==None or answer==None or category==None:
         return jsonify(message='매개변수가 비어있습니다',code=400)
     problem_db.insert({'id':user.get('id'),'title':title, "sub_title":sub_title,"image": image,"answer":answer,'category':category})
@@ -42,8 +41,8 @@ def problem(user):
 @problem_api.route('/sendProblem',methods=['GET'])
 def send_problem():
     problem_list=[]
-    problems=problem_db.find()
-    pri
+    problems=problem_db.find({})
+    print(problems)
     for problem in problems:
         problem_list.append(problem)
 
