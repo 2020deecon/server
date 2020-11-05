@@ -28,6 +28,7 @@ def problem(user):
         sub_title=data.get('sub_title')
         image=data.get('image')
 
+
     except Exception as e:
         return jsonify(error=str(e),message='server error',code=400)
     
@@ -43,10 +44,11 @@ def send_problem():
     problems=problem_db.find({})
     print(problems)
     for problem in problems:
+        
         problem_list.append(problem)
+        
 
     return jsonify(code=200,data=problem_list)
         
         
     
-a
