@@ -45,8 +45,8 @@ def send_problem():
     print(problems)
     for problem in problems:
         problem=dict(problem)
-        object_id=problem.get('ObjectId')
-        problems['ObjectId']=object_id.toString()
+        object_id=problem.get('_id')
+        problems['_id']=object_id.toString()
         problem_list.append(problems)
         
 
