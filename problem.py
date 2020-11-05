@@ -46,13 +46,15 @@ def send_problem():
     for problem in problems:
         print(problem)
         problem=dict(problem)
-        object_id=problem.get('')
+        object_id=problem.get('_id')
+
         object_id=str(object_id)
         problem['_id']=object_id
-        problem_list.append(problems)
+        problem['category']=problem['category'].incode('utf-8')
+        problem_list.append(problem)
         
 
-    return jsonify(code=200,data=problem_list)
+    return jsonify(code=200 )
         
         
     
