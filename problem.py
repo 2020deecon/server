@@ -116,12 +116,24 @@ def workbookProblem(user):
     workbook_db.insert({'title':title,'user_id':user_id,'category':category,'problem_id':problem_id})
     return jsonify(code=200,message='성공')
 
-@problem_api.route('/sendWorkbook',methods=['GET'])
+@problem_api.route('/sendMineWorkbook',methods=['GET'])
 @login_required
 def sendWorkbook(user):
     if user==None:
         return jsonify(code=400,message='check token')
     user_id=user.get('id')
+    workbooks=workbook_db.find({'user_id':user_id})
+    workbook_list=[]
+    for workbook in workbooks:
+        workbook_dict={}
+        workbook_dict['title']=workbook.get('title')
+        workbook_dict['category']=workbook.get('category')
+        workbook_dict['id']=str(workbook.get('_id'))
+        workbook_list.append(workbook_dict)
+    return jsonify(code=200,data=workbook_list)
+
+@problem_api.route('/sendAllWorkbook',methods=['GET'])
+def sendWorkbook():
     workbooks=workbook_db.find({'user_id':user_id})
     workbook_list=[]
     for workbook in workbooks:
