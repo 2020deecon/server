@@ -10,6 +10,8 @@ from bson.objectid import ObjectId
 
 problem_api = Blueprint('problem',__name__,url_prefix='/')
 problem_db=db['problem']
+workbook_db=db['workbook']
+
 
 @problem_api.route('/problem',methods=['POST'])
 @login_required
@@ -61,7 +63,7 @@ def send_problem():
         
     return jsonify(code=200,data=problem_list )
 
-
+#detailProblem query : id:id 
 @problem_api.route('/detailProblem',methods=['GET'])
 def detail_problem():
     data=request.args
@@ -77,4 +79,52 @@ def detail_problem():
         
     return jsonify(code=200,data=data)
         
+@problem_api.route('/workbookProblem',methods=['GET'])
+def workbookProblem():
+    data=request.args
+    title=data.get('title')
+    category=data.get('category')
+    problem_id=data.get('problem_id')
+    if title==None or category==None or problem_id==None:
+        return jsonify(code=400,message='매개변수가 비어있습니다')
+    
+    workbook_db.insert({title:title,category:category,problem_id:problem_id})
+    return jsonify(code=200,message='성공')
+@problem_api.route('/sendWorkbook',methods=['GET'])
+def sendWorkbook():
+    workbooks=workbook_db.find()
+    workbook_list=[]
+    for workbook in workbooks:
+        workbook_dict={}
+        workbook_dict['title']=workbook.get('title')
+        workbook_dict['category']=workbook.get('category')
+        workbook_dict['id']=str(workbook.get('_id'))
+        workbook_list.append(workbook_dict)
+    return jsonify(code=200,data=workbook_list)
+
+@problem_api.route('/detailWorkbook',methods=['GET'])
+def sendWorkbook():
+    data=request.args
+    workbook_id=data['id']
+    workbooks=workbook_db.find({'id':workbook_id})
+    workbook=None
+    for i in workbooks:
+        workbook=i    
+
+    if workbook==None:
+        return jsonify(code=404,message='id에 일치하는 것이 없습니다')
+
+        problem_id=workbook['id']
+    problem_list=[]
+    for i in problem_id:
+        objectId=ObjectId(I)
+        res=problem_db.find({'_id':objectId})
+        for j in res:
+            j['_id']=str(j['_id'])
+            problem_list.append(j)
+    
+    return jsonify(code=200,data=problem_list)
+        
+
+
     
