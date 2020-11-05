@@ -50,7 +50,7 @@ def send_problem():
 
         object_id=str(object_id)
         problem['_id']=object_id
-        problem['category']=problem['category'].encode('utf-8')
+        problem['category']=problem['category'].encode('utf-8').decode('euc-kr')
         problem_list.append(problem)
         
 
