@@ -143,7 +143,7 @@ def detailWorkbook():
     workbook=None
     for i in workbooks:
         workbook=i    
-
+    problem_id=[]
     if workbook==None:
         return jsonify(code=404,message='id에 일치하는 것이 없습니다')
 
