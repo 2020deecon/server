@@ -68,7 +68,6 @@ def detailPost():
     del post['_id']
     post['_id']=None
     post['comment']=comment_list
-    print(post)
     return jsonify(code=200,data=post)
     
 
