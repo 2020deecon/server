@@ -118,7 +118,7 @@ def workbookProblem(user):
 
 @problem_api.route('/sendMineWorkbook',methods=['GET'])
 @login_required
-def sendWorkbook(user):
+def sendMineWorkbook(user):
     if user==None:
         return jsonify(code=400,message='check token')
     user_id=user.get('id')
@@ -133,7 +133,7 @@ def sendWorkbook(user):
     return jsonify(code=200,data=workbook_list)
 
 @problem_api.route('/sendAllWorkbook',methods=['GET'])
-def sendWorkbook():
+def sendAllWorkbook():
     workbooks=workbook_db.find({'user_id':user_id})
     workbook_list=[]
     for workbook in workbooks:
