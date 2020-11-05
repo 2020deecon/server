@@ -125,7 +125,9 @@ def sendWorkbook():
 def detailWorkbook():
     data=request.args
     workbook_id=data['id']
-    workbooks=workbook_db.find({'id':workbook_id})
+    objectId=ObjectId(workbook_id)
+    
+    workbooks=workbook_db.find({'_id':objectId})
     workbook=None
     for i in workbooks:
         workbook=i    
