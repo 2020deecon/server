@@ -30,10 +30,10 @@ def makePost(data):
     title=data.get('title')
     image=data.get('image')
     text=data.get('text')
-
+    post_type=data.get('type')
     if title==None or image==None or text==None:
         return jsonify(code=400,message='매개변수가 비었습니다')
-    comunity_db.insert({'write_id':user_id,'time':getDateTime(),'title':title,'image':image,'text':text})
+    comunity_db.insert({'type':post_type,'write_id':user_id,'time':getDateTime(),'title':title,'image':image,'text':text})
 
 @comunity_api.route('/sendPost',methods=['GET'])
 def sendPost():
@@ -45,6 +45,7 @@ def sendPost():
         post_dict['title']=i['title']
         post_dict['text']=i['text']
         post_dict['time']=i['time']
+        post_dict['type']=i['type']
         post_list.append(post_dict)
     return jsonify(code=200,data=post_list)
 
