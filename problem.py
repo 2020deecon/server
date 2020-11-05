@@ -46,7 +46,7 @@ def send_problem():
     for problem in problems:
         problem=dict(problem)
         object_id=problem.get('_id')
-        problems['_id']=object_id.toString()
+        problems['_id']=str(object_id)
         problem_list.append(problems)
         
 
