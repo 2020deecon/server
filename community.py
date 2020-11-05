@@ -8,15 +8,15 @@ comunity_api = Blueprint('comunity',__name__,url_prefix='/')
 comunity_db=db['comunity']
 comment_db=db['comment']
 
-def getDateTime() -> int:
+def getDateTime():
 
     dt_obj = datetime.strptime('20.12.2016 09:38:42,76',
                             '%d.%m.%Y %H:%M:%S,%f')
-    millisec = dt_obj.timestamp() * 1000
+    # millisec = dt_obj.timestamp() * 1000
 
-    print(int(millisec))
+    # print(int(millisec))
 
-    return int(millisec)
+    return dt_obj
 
 @comunity_api.route('/makePost',methods=['POST'])
 @login_required
