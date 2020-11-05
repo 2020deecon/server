@@ -92,7 +92,7 @@ def workbookProblem():
     if title==None or category==None or problem_id==None:
         return jsonify(code=400,message='매개변수가 비어있습니다')
     
-    workbook_db.insert({title:title,category:category,problem_id:problem_id})
+    workbook_db.insert({'title':title,'category':category,'problem_id':problem_id})
     return jsonify(code=200,message='성공')
 
 @problem_api.route('/sendWorkbook',methods=['GET'])
