@@ -10,7 +10,7 @@ from Decorator import login_required
 problem_api = Blueprint('problem',__name__,url_prefix='/')
 problem_db=db['problem']
 
-@problem_api.route('/problem',methodS=['POST'])
+@problem_api.route('/problem',methods=['POST'])
 @login_required
 def problem(user):
     print(user.get('email'))
@@ -38,3 +38,16 @@ def problem(user):
     problem_db.insert({'id':user.get('id'),'title':title, "sub_title":sub_title,"image": image,"answer":answer,'category':category})
     
     return jsonify(message='success',code=200)
+
+@problem_api.route('/sendProblem',methods=['GET'])
+def send_problem():
+    problem_list=[]
+    problems=problem_db.find()
+    pri
+    for problem in problems:
+        problem_list.append(problem)
+
+    return jsonify(code=200,data=problem_list)
+        
+        
+    

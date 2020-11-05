@@ -15,9 +15,9 @@ auth_api.config['JWT_SECRET_KEY']='alswns0221'
 def get_id(data):
     user_id=data.get('id')
     if user_id!=None:
-        return jsonfy(code=200,id=user_id)
+        return jsonify(code=200,id=user_id)
     else:
-        return jsonfy(code=400)
+        return jsonify(code=400)
 
 @auth_api.route('/register',methods=['POST'])
 def regiser():
