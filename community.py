@@ -24,7 +24,7 @@ def makePost(data):
     if data==None:
         return jsonify(code=400,message='check token')
 
-    user_name=data.get('name')
+    user_id=data.get('id')
     data=request.get_json()
     
     title=data.get('title')
@@ -90,7 +90,7 @@ def detailPost():
 def makeComment(data):
     if data==None:
         return jsonify(code=400,message='check token')
-    user_name=data.get('name')
+    user_id=data.get('id')
     data=request.get_json()
 
     comment=data.get('comment')
@@ -98,7 +98,7 @@ def makeComment(data):
 
     if user_name==None or comment ==None or project_id==None:
         return jsonify(code=400,message='매개변수가 비었습니다')            
-    comunity_db({'comment':comment,'writer':user_name,'project_id':project_id,'time':getDateTime()})    
+    comunity_db({'comment':comment,'writer':user_id,'project_id':project_id,'time':getDateTime()})    
 
     
 
