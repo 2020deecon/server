@@ -50,11 +50,11 @@ def send_problem():
 
         object_id=str(object_id)
         problem['_id']=object_id
-        problem['category']=problem['category'].incode('utf-8')
+        problem['category']=problem['category'].encode('utf-8')
         problem_list.append(problem)
         
 
-    return jsonify(code=200 )
+    return jsonify(code=200,data=problem_list )
         
         
     
