@@ -96,12 +96,10 @@ def makeComment(data):
 
     comment=data.get('comment')
     project_id=data.get('project_id')
-    print(user_id)
-    print(comment)
-    print(project_id)
     if user_id==None or comment ==None or project_id==None:
         return jsonify(code=400,message='매개변수가 비었습니다')            
-    comunity_db({'comment':comment,'writer':user_id,'project_id':project_id,'time':getDateTime()})    
+    comunity_db.insert({'comment':comment,'writer':user_id,'project_id':project_id,'time':getDateTime()})    
+    return jsonify(code=200,message='성공!')
 
     
 
