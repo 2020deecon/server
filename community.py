@@ -31,22 +31,23 @@ def makePost(data):
     image=data.get('image')
     text=data.get('text')
     post_type=data.get('type')
-    if title==None or image==None or text==None:
+    if title==None   or text==None:
         return jsonify(code=400,message='매개변수가 비었습니다')
     comunity_db.insert({'type':post_type,'write_id':user_id,'time':getDateTime(),'title':title,'image':image,'text':text})
     return jsonify(code=200,message='성공')
 
 @comunity_api.route('/sendPost',methods=['GET'])
 def sendPost():
-    data=comunity_db.find({})
+    data=comunity_db.find()
     post_list=[]
     for i in data:
         post_dict=dict()
+        print(i)
         post_dict['id']=str(i['_id'])
         post_dict['title']=i['title']
-        post_dict['text']=i['text']
-        post_dict['time']=i['time']
-        post_dict['type']=i['type']
+        post_dict['text']=i.get('text')
+        post_dict['time']=i.get('time')
+        post_dict['type']=i.get('type')
         post_list.append(post_dict)
     return jsonify(code=200,data=post_list)
 
