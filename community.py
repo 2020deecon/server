@@ -14,7 +14,6 @@ def getDateTime() -> int:
                             '%d.%m.%Y %H:%M:%S,%f')
     millisec = dt_obj.timestamp() * 1000
 
-    print(int(millisec))
 
     return int(millisec)
 
@@ -42,7 +41,6 @@ def sendPost():
     post_list=[]
     for i in data:
         post_dict=dict()
-        print(i)
         post_dict['id']=str(i['_id'])
         post_dict['title']=i['title']
         post_dict['text']=i.get('text')
@@ -99,7 +97,7 @@ def makeComment(data):
     comment=data.get('comment')
     project_id=data.get('project_id')
 
-    if user_name==None or comment ==None or project_id==None:
+    if user_id==None or comment ==None or project_id==None:
         return jsonify(code=400,message='매개변수가 비었습니다')            
     comunity_db({'comment':comment,'writer':user_id,'project_id':project_id,'time':getDateTime()})    
 
