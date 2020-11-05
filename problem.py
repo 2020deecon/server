@@ -16,7 +16,6 @@ workbook_db=db['workbook']
 @problem_api.route('/problem',methods=['POST'])
 @login_required
 def problem(user):
-    print(user.get('email'))
     try:
         # image=request.files['image']
         data=request.get_json()
@@ -81,6 +80,20 @@ def detail_problem():
         return jsonify(code=404,message="can not find this id")    
         
     return jsonify(code=200,data=data)
+@problem_api.route('/myProblem',methods=['GET'])
+@login_required
+def sendWorkbook(data):
+    user_id=data.get('id')
+    problems=problem_db.find({'id':user_id})
+    problem_list=[]
+    for problem in problems:
+        req_dict=dict()
+        req_dict['id']=str(problem['_id'])
+        req_dict['title']=problem['title']
+        req_dict['image']=problem['image']
+        problem_list.append(req_dict)
+
+    return jsonify(code=200,data=problem_list)
         
 @problem_api.route('/workbookProblem',methods=['POST'])
 def workbookProblem():
@@ -106,6 +119,7 @@ def sendWorkbook():
         workbook_dict['id']=str(workbook.get('_id'))
         workbook_list.append(workbook_dict)
     return jsonify(code=200,data=workbook_list)
+
 
 @problem_api.route('/detailWorkbook',methods=['GET'])
 def detailWorkbook():
