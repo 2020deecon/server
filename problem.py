@@ -82,7 +82,7 @@ def detail_problem():
     return jsonify(code=200,data=data)
 @problem_api.route('/myProblem',methods=['GET'])
 @login_required
-def sendWorkbook(data):
+def myProblem(data):
     user_id=data.get('id')
     problems=problem_db.find({'id':user_id})
     problem_list=[]
