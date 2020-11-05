@@ -143,14 +143,13 @@ def detailWorkbook():
     workbook=None
     for i in workbooks:
         workbook=i    
-    problem_id=[]
     if workbook==None:
         return jsonify(code=404,message='id에 일치하는 것이 없습니다')
 
-        problem_id=workbook['id']
+    problem_id=workbook['problem_id']
     problem_list=[]
     for i in problem_id:
-        objectId=ObjectId(I)
+        objectId=ObjectId(i)
         res=problem_db.find({'_id':objectId})
         for j in res:
             j['_id']=str(j['_id'])
