@@ -134,7 +134,7 @@ def sendMineWorkbook(user):
 
 @problem_api.route('/sendAllWorkbook',methods=['GET'])
 def sendAllWorkbook():
-    workbooks=workbook_db.find({'user_id':user_id})
+    workbooks=workbook_db.find()
     workbook_list=[]
     for workbook in workbooks:
         workbook_dict={}
