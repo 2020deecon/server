@@ -44,8 +44,10 @@ def send_problem():
     problems=problem_db.find({})
     print(problems)
     for problem in problems:
-        
-        problem_list.append(problem)
+        problem=dict(problem)
+        object_id=problem.get('ObjectId')
+        problems['ObjectId']=object_id.toString()
+        problem_list.append(problems)
         
 
     return jsonify(code=200,data=problem_list)
