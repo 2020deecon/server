@@ -44,6 +44,7 @@ def send_problem():
     problems=problem_db.find({})
     print(problems)
     for problem in problems:
+        print(problem)
         problem=dict(problem)
         object_id=problem.get('')
         object_id=str(object_id)
