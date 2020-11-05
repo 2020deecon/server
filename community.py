@@ -41,8 +41,8 @@ def sendPost():
     post_list=[]
     for i in data:
         post_dict=dict()
-        post_dict['id']=str(i['_id'])
-        post_dict['title']=i['title']
+        post_dict['id']=str(i.get('_id'))
+        post_dict['title']=i.get('title')
         post_dict['text']=i.get('text')
         post_dict['time']=i.get('time')
         post_dict['type']=i.get('type')
