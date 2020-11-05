@@ -10,24 +10,29 @@ from Decorator import login_required
 problem_api = Blueprint('problem',__name__,url_prefix='/')
 problem_db=db['problem']
 
-@problem_api.route('/problem')
+@problem_api.route('/problem',methodS=['POST'])
 @login_required
 def problem(user):
     print(user.get('email'))
     try:
         # image=request.files['image']
-
-        title=request.args.get('title')
-        problem_type=request.args.get('type')
-        answer=request.args.get('answer')
-        category=request.args.get('category')
+        data=request.get_json()
+        if data==None:
+            data={}
+        title=data.get('title')
+        problem_type=data.get('type')
+        answer=data.get('answer')
+        category=data.get('category')
         
-        sub_title=request.args.get('sub_title')
-        image=request.args.get('image')
+        sub_title=data.get('sub_title')
+        image=data.get('image')
 
     except Exception as e:
         return jsonify(error=str(e),message='server error',code=400)
-    
+    if image!=None:
+        f=open('./image.jpg','w')
+        f.write(base64.b64decode(image))
+        print('test')
     if title==None or problem_type==None or answer==None or category==None:
         return jsonify(message='매개변수가 비어있습니다',code=400)
     problem_db.insert({'email':user.get('email'),'title':title, "sub_title":sub_title,"image": image,"answer":answer,'category':category})

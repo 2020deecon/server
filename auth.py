@@ -13,10 +13,7 @@ auth_api.config['JWT_SECRET_KEY']='alswns0221'
 @auth_api.route('/user',methods=['GET'])
 @login_required
 def get_id(data):
-    print('아이디는?!?!?')
-    print('\n'+data)
     user_id=data.get('id')
-    print(data['id'])
     if user_id!=None:
         return jsonfy(code=200,id=user_id,data=data)
     else:
