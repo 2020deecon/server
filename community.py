@@ -46,7 +46,7 @@ def sendPost():
         post_dict['text']=i['text']
         post_dict['time']=i['time']
         post_list.append(post_dict)
-    return jsonify(code=200,data=post_dict)
+    return jsonify(code=200,data=post_list)
 
 @comunity_api.route('/detailPost',methods=['GET'])
 def detailPost():
