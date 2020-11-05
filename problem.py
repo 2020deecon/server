@@ -6,6 +6,7 @@ import base64
 import random
 from db import db
 from Decorator import login_required
+from bson.objectid import ObjectId
 
 problem_api = Blueprint('problem',__name__,url_prefix='/')
 problem_db=db['problem']
@@ -58,8 +59,22 @@ def send_problem():
 
         problem_list.append(data)
         
-
     return jsonify(code=200,data=problem_list )
+
+
+@problem_api.route('/detailProblem',methods=['GET'])
+def detail_problem():
+    data=request.args
+    _id=data.get('id')
+    objectId=ObjectId(_id)
+    res=problem_db.find({'_id':objectId})
+    data={}
+    for i in res:
+        data=i
+        data['_id']=_id
+    if data=={}:
+        return jsonify(code=404,message="can not find this id")    
         
+    return jsonify(code=200,data=data)
         
     
