@@ -35,6 +35,6 @@ def problem(user):
         print('test')
     if title==None or problem_type==None or answer==None or category==None:
         return jsonify(message='매개변수가 비어있습니다',code=400)
-    problem_db.insert({'email':user.get('email'),'title':title, "sub_title":sub_title,"image": image,"answer":answer,'category':category})
+    problem_db.insert({'id':user.get('id'),'title':title, "sub_title":sub_title,"image": image,"answer":answer,'category':category})
     
     return jsonify(message='success',code=200)
