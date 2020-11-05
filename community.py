@@ -62,9 +62,11 @@ def detailPost():
         post=i
     for i in comunity_db.find({'project_id':comunity_id}):
         del i['_id']
+        i['_id']=None
         comment_list.append(i)
     
     del post['_id']
+    post['_id']=None
     post['comment']=comment_list
     print(post)
     return jsonify(code=200,data=post)
