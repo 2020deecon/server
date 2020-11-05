@@ -17,7 +17,6 @@ def login_required(f):
         access_token = request.headers.get('Authorization') 	# 3)
         if access_token is not None:  							# 4)
             try:    
-                print(access_token)
                 payload = jwt.decode(access_token, config, algorithms=['HS256'])			   # 5)
             except jwt.InvalidTokenError as e:
                 payload = None   

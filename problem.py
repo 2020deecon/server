@@ -26,6 +26,7 @@ def problem(user):
         title=data.get('title')
         problem_type=data.get('type')
         answer=data.get('answer')
+        view=data.get('view')
         category=data.get('category')
         
         sub_title=data.get('sub_title')
@@ -37,7 +38,9 @@ def problem(user):
     
     if title==None or problem_type==None or answer==None or category==None:
         return jsonify(message='매개변수가 비어있습니다',code=400)
-    problem_db.insert({'id':user.get('id'),'title':title, "sub_title":sub_title,"image": image,"answer":answer,'category':category})
+    if problem_type =='true' and view==None:
+        return jsonify(message='매개변수가 비어있습니다',code=400)  
+    problem_db.insert({'id':user.get('id'),'problem_type':problem_type,'view':view,'title':title, "sub_title":sub_title,"image": image,"answer":answer,'category':category})
     
     return jsonify(message='success',code=200)
 
@@ -79,9 +82,10 @@ def detail_problem():
         
     return jsonify(code=200,data=data)
         
-@problem_api.route('/workbookProblem',methods=['GET'])
+@problem_api.route('/workbookProblem',methods=['POST'])
 def workbookProblem():
-    data=request.args
+    data=request.get_json()
+
     title=data.get('title')
     category=data.get('category')
     problem_id=data.get('problem_id')
@@ -90,6 +94,7 @@ def workbookProblem():
     
     workbook_db.insert({title:title,category:category,problem_id:problem_id})
     return jsonify(code=200,message='성공')
+
 @problem_api.route('/sendWorkbook',methods=['GET'])
 def sendWorkbook():
     workbooks=workbook_db.find()
