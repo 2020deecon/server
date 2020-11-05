@@ -37,7 +37,7 @@ def makePost(data):
 
 @comunity_api.route('/sendPost',methods=['GET'])
 def sendPost():
-    data=comunity_db.find()
+    data=comunity_db.find().sort('time',1)
     post_list=[]
     for i in data:
         post_dict=dict()
@@ -58,7 +58,7 @@ def detailPost():
     comment_list=[]
     for i in comunity_db.find({'_id':objectId}):
         post=i
-    for i in comunity_db.find({'project_id':comunity_id}):
+    for i in comunity_db.find({'project_id':comunity_id}).sort('time'):
         del i['_id']
         i['_id']=None
         comment_list.append(i)
