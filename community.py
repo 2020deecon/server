@@ -74,10 +74,10 @@ def detailPost():
     post_list=[]
     for i in data:
         post_dict=dict()
-        post_dict['id']=str(i['_id'])
-        post_dict['title']=i['title']
-        post_dict['text']=i['text']
-        post_dict['time']=i['time']
+        post_dict['id']=str(i.get('_id'))
+        post_dict['title']=i.get('title')
+        post_dict['text']=i.get('text')
+        post_dict['time']=i.get('time')
         post_list.append(post_dict)
     return jsonify(code=200,data=post_dict)
 
