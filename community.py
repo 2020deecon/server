@@ -21,6 +21,9 @@ def getDateTime() -> int:
 @comunity_api.route('/makePost',methods=['POST'])
 @login_required
 def makePost(data):
+    if data==None:
+        return jsonify(code=400,message='check token')
+
     user_name=data.get('name')
     data=request.get_json()
     
@@ -84,6 +87,8 @@ def detailPost():
 @comunity_api.route('/makeComment',methods=['POST'])
 @login_required
 def makeComment(data):
+    if data==None:
+        return jsonify(code=400,message='check token')
     user_name=data.get('name')
     data=request.get_json()
 

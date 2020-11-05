@@ -16,6 +16,8 @@ workbook_db=db['workbook']
 @problem_api.route('/problem',methods=['POST'])
 @login_required
 def problem(user):
+    if user==None:
+        return jsonify(code=400,message='check token')
     try:
         # image=request.files['image']
         data=request.get_json()
@@ -83,6 +85,8 @@ def detail_problem():
 @problem_api.route('/myProblem',methods=['GET'])
 @login_required
 def myProblem(data):
+    if data==None:
+        return jsonify(code=400,message='check token')
     user_id=data.get('id')
     problems=problem_db.find({'id':user_id})
     problem_list=[]
@@ -126,7 +130,7 @@ def detailWorkbook():
     data=request.args
     workbook_id=data['id']
     objectId=ObjectId(workbook_id)
-    
+
     workbooks=workbook_db.find({'_id':objectId})
     workbook=None
     for i in workbooks:
