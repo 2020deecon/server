@@ -40,6 +40,8 @@ def problem(user):
     if title==None or problem_type==None or answer==None or category==None:
         return jsonify(message='매개변수가 비어있습니다',code=400)
     if problem_type =='true' and view==None:
+        print(problem_type)
+        print(view)
         return jsonify(message='매개변수가 비어있습니다',code=400)  
     problem_db.insert({'id':user.get('id'),'problem_type':problem_type,'view':view,'title':title, "sub_title":sub_title,"image": image,"answer":answer,'category':category})
     
