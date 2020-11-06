@@ -57,11 +57,12 @@ def send_problem():
         object_id=problem.get('_id')
         object_id=str(object_id)
         problem['_id']=object_id
-        problem['category']=problem['category'].encode('euc-kr').decode('euc-kr')
-
+        
+        data['category']=problem.get('category').encode('euc-kr').decode('euc-kr')
         data['_id']=object_id
-        data['image']=problem['image']
-        data['title']=problem['title']
+        data['image']=problem.get('image')
+        data['title']=problem.get('title')
+        
 
         problem_list.append(data)
         
