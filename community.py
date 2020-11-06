@@ -58,7 +58,7 @@ def detailPost():
     comment_list=[]
     for i in comunity_db.find({'_id':objectId}):
         post=i
-    for i in comunity_db.find({'project_id':comunity_id}).sort('time'):
+    for i in comment_db.find({'project_id':comunity_id}).sort('time'):
         del i['_id']
         i['_id']=None
         comment_list.append(i)
@@ -98,7 +98,7 @@ def makeComment(data):
     project_id=data.get('project_id')
     if user_id==None or comment ==None or project_id==None:
         return jsonify(code=400,message='매개변수가 비었습니다')            
-    comunity_db.insert({'comment':comment,'writer':user_id,'project_id':project_id,'time':getDateTime()})    
+    comment_db.insert({'comment':comment,'writer':user_id,'project_id':project_id,'time':getDateTime()})    
     return jsonify(code=200,message='성공!')
 
     
