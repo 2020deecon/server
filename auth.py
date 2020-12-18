@@ -30,15 +30,15 @@ def regiser():
     pw=data.get('pw')
     email=data.get('email')
     name=data.get('name')
-    
+    age=data.get('age')
     # request.data
-    if user_id==None or pw==None or email==None or name==None:
+    if user_id==None or pw==None or email==None or name==None or age==None:
         return jsonify(message='매개변수가 비어있습니다',code=400)
    
     for i in auth_db.find({'id':user_id}):
         return jsonify(message='이미 있는 아이디 입니다',code= 403)   
 
-    auth_db.insert({'email':email, "name":name,"id": user_id,"pw":base64.b64encode(pw.encode('euc-kr'))})
+    auth_db.insert({'email':email, "name":name,"id": user_id,"pw":base64.b64encode(pw.encode('euc-kr')),'age':age})
     return jsonify(message="success",code=200)
 
     
