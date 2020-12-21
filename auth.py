@@ -52,7 +52,7 @@ def login():
 
     a=auth_db.find({'id':user_id})
     for i in a:
-        print(i)
+        
         if i['pw']==base64.b64encode(pw.encode('euc-kr')):
             payload={
                 'user_id':user_id,
