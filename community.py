@@ -46,6 +46,7 @@ def sendPost():
         post_dict['text']=i.get('text')
         post_dict['time']=i.get('time')
         post_dict['type']=i.get('type')
+        post_dict['image']=i.get('image')
         post_list.append(post_dict)
     return jsonify(code=200,data=post_list)
 
