@@ -6,7 +6,7 @@ import google.oauth2 as google
 
 class Dialogflow:
     def __init__(self):        
-        client_secret ='dialogflow.json'
+        client_secret ='google/dialogflow.json'
         scope=['https://www.googleapis.com/auth/dialogflow']
         http=re.Request()
 

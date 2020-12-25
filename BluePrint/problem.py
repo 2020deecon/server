@@ -4,8 +4,8 @@ import pymongo
 from pymongo import MongoClient
 import base64
 import random
-from db import db
-from Decorator import login_required
+from .db import db
+from .Decorator import login_required
 from bson.objectid import ObjectId
 
 problem_api = Blueprint('problem',__name__,url_prefix='/')
@@ -21,7 +21,6 @@ def problem(user):
     try:
         # image=request.files['image']
         data=request.get_json()
-        print(data)
         if data==None:
             data={}
         title=data.get('title')
@@ -40,8 +39,6 @@ def problem(user):
     if title==None or problem_type==None or answer==None or category==None:
         return jsonify(message='매개변수가 비어있습니다',code=400)
     if problem_type =='true' and view==None:
-        print(problem_type)
-        print(view)
         return jsonify(message='매개변수가 비어있습니다',code=400)  
     problem_db.insert({'id':user.get('id'),'problem_type':problem_type,'view':view,'title':title, "sub_title":sub_title,"image": image,"answer":answer,'category':category})
     
@@ -51,7 +48,6 @@ def problem(user):
 def send_problem():
     problem_list=[]
     problems=problem_db.find({})
-    print(problems)
     for problem in problems:
         data=dict()
 

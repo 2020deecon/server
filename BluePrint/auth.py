@@ -1,9 +1,10 @@
 from flask import Flask,request,jsonify,abort,Blueprint
 import base64
-from db import db
+# from db import db
+from .db import db
 import jwt
 from datetime import datetime, timedelta
-from Decorator import login_required
+from .Decorator import login_required
 
 auth_api = Blueprint('auth',__name__,url_prefix='/')
 auth_db=db['auth']

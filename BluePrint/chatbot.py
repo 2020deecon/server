@@ -1,5 +1,7 @@
 from flask import Flask,request,jsonify,abort,Blueprint
-from dialogflow import Dialogflow
+# from .dialogflow import Dialogflow
+
+from google.dialogflow import Dialogflow
 chatbot_api = Blueprint('chatbot',__name__,url_prefix='/')
 dialogflow=Dialogflow()
 

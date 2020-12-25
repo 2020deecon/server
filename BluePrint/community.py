@@ -1,6 +1,6 @@
 from flask import request,jsonify,abort,Blueprint
-from db import db
-from Decorator import login_required
+from .db import db
+from .Decorator import login_required
 from bson.objectid import ObjectId
 from datetime import datetime
 

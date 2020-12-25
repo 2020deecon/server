@@ -1,7 +1,7 @@
 import jwt
 from functools  import wraps
 from flask 		import request, Response ,jsonify
-from db import db
+from .db import db
 auth=db['auth']
 config='alswns0221'
 def login_required(f):     
