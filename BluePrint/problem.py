@@ -11,7 +11,7 @@ from bson.objectid import ObjectId
 problem_api = Blueprint('problem',__name__,url_prefix='/')
 problem_db=db['problem']
 workbook_db=db['workbook']
-
+wrong_anser_note_db=db['wrong_anser_note_db']
 
 @problem_api.route('/problem',methods=['POST'])
 @login_required
@@ -113,6 +113,39 @@ def workbookProblem(user):
     
     workbook_db.insert({'title':title,'user_id':user_id,'category':category,'problem_id':problem_id})
     return jsonify(code=200,message='성공')
+
+@problem_api.route('/wrongNote',methods=['POST'])
+@login_required
+def wrongNote(user):
+    if user==None:
+        return jsonify(code=400,message='check token')
+    data=request.get_json()
+    user_id=user.get('id')
+
+    title=data.get('title')
+    category=data.get('category')
+    problem_id=data.get('problem_id')
+    if title==None or category==None or problem_id==None:
+        return jsonify(code=400,message='매개변수가 비어있습니다')
+    
+    wrong_anser_note_db.insert({'title':title,'user_id':user_id,'category':category,'problem_id':problem_id})
+    return jsonify(code=200,message='성공')
+
+@problem_api.route('/sendWrongNote',methods=['GET'])
+@login_required
+def sendWrongNote(user):
+    if user==None:
+        return jsonify(code=400,message='check token')
+    user_id=user.get('id')
+    workbooks=wrong_anser_note_db.find({'user_id':user_id})
+    workbook_list=[]
+    for workbook in workbooks:
+        workbook_dict={}
+        workbook_dict['title']=workbook.get('title')
+        workbook_dict['category']=workbook.get('category')
+        workbook_dict['id']=str(workbook.get('_id'))
+        workbook_list.append(workbook_dict)
+    return jsonify(code=200,data=workbook_list)
 
 @problem_api.route('/sendMineWorkbook',methods=['GET'])
 @login_required
