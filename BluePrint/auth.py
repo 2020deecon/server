@@ -57,7 +57,7 @@ def login():
         if i['pw']==base64.b64encode(pw.encode('euc-kr')):
             payload={
                 'user_id':user_id,
-                'exp':datetime.utcnow() + timedelta(seconds = 60 * 60 * 24),
+                'exp':datetime.utcnow() + timedelta(seconds = 60 * 60 * 24 * 30),
             }
             #
             token=jwt.encode(payload,auth_api.config['JWT_SECRET_KEY'],'HS256')
