@@ -60,8 +60,7 @@ def send_problem():
         data['_id']=object_id
         data['image']=problem.get('image')
         data['title']=problem.get('title')
-        
-
+        data['write_id']=problem.get('id')
         problem_list.append(data)
         
     return jsonify(code=200,data=problem_list )
@@ -140,6 +139,7 @@ def sendAllWorkbook():
         workbook_dict['title']=workbook.get('title')
         workbook_dict['category']=workbook.get('category')
         workbook_dict['id']=str(workbook.get('_id'))
+        workbook_dict['write_id']=workbook.get('user_id')
         workbook_list.append(workbook_dict)
     return jsonify(code=200,data=workbook_list)
 
