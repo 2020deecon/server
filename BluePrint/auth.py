@@ -17,9 +17,10 @@ def get_id(data):
     if data==None:
         return jsonify(code=400,message='check token')
 
-    user_id=data.get('name')
+    user_id=data.get('id')
+    user_name=data.get('name')
     if user_id!=None:
-        return jsonify(code=200,id=user_id)
+        return jsonify(code=200,id=user_id,name=user_name)
     else:
         return jsonify(code=400)
 
