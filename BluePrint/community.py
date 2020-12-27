@@ -7,6 +7,7 @@ from datetime import datetime
 comunity_api = Blueprint('comunity',__name__,url_prefix='/')
 comunity_db=db['comunity']
 comment_db=db['comment']
+problem_db=db['problem']
 
 def getDateTime() -> int:
 
@@ -103,9 +104,17 @@ def detailPost():
 
 
 
-
-
-
+@comunity_api.route('/searchProblem',methods=['GET'])
+def searchProblem():
+    data=request.args
+    query=data.get('q')
+    problems=problem_db.find({'title':{"$regex" : query}})
+    problem_list=[]
+    for i in problems:
+        i['id']=str(i['_id'])
+        del i[_id]
+        problem_list.append(i)
+    return jsonify(code=200,data=problem_list)
 @comunity_api.route('/makeComment',methods=['POST'])
 @login_required
 def makeComment(data):

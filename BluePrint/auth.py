@@ -60,7 +60,7 @@ def login():
                 'user_id':user_id,
                 'exp':datetime.utcnow() + timedelta(seconds = 60 * 60 * 24 * 30),
             }
-            #
+
             token=jwt.encode(payload,auth_api.config['JWT_SECRET_KEY'],'HS256')
 
             return jsonify(code=200,message="seccess",access_token=token.decode('UTF-8'))
