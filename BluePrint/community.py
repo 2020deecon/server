@@ -67,7 +67,12 @@ def sendComment():
 def detailPost():
     data=request.args
     comunity_id=data['id']
-    objectId=ObjectId(comunity_id)
+    if comunity_id=='undefined':
+        return jsonify(code=403,message='undifined')
+    try:
+        objectId=ObjectId(comunity_id)
+    except Exception:
+        return jsonify(code=403,message='error',id=comunity_id)
     post=None
     comment_list=[]
     for i in comunity_db.find({'_id':objectId}):
