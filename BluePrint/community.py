@@ -54,11 +54,14 @@ def sendPost():
 def sendComment():
     data=request.args
     project_id=data.get('id')
-    
+
     if project_id==None:
         return jsonify(code=403,messege='pls comment_id')
     comments=comment_db.find({'project_id':project_id})
-    return jsonify(code=200,data=comments)
+    comment_list=[]
+    for i in comment_list:
+        comment_list.append(i)
+    return jsonify(code=200,data=comment_list)
 
 @comunity_api.route('/detailPost',methods=['GET'])
 def detailPost():
