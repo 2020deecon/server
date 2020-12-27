@@ -181,7 +181,7 @@ def sendWrongNote(user):
     workbooks=wrong_anser_note_db.find({'user_id':user_id})
     workbook_list=[]
     for workbook in workbooks:
-        workbook_list.append(workbook_list)
+        workbook_list.append(workbook)
     return jsonify(code=200,data=workbook_list)
 
 @problem_api.route('/sendMineWorkbook',methods=['GET'])
