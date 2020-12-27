@@ -114,25 +114,25 @@ def workbookProblem(user):
     workbook_db.insert({'title':title,'user_id':user_id,'category':category,'problem_id':problem_id})
     return jsonify(code=200,message='성공')
 
-@problem_api.route('/wrongNote',methods=['POST'])
-@login_required
-def wrongNote(user):
-    if user==None:
-        return jsonify(code=400,message='check token')
-    data=request.get_json()
-    user_id=user.get('id')
+# @problem_api.route('/wrongNote',methods=['POST'])
+# @login_required
+# def wrongNote(user):
+#     if user==None:
+#         return jsonify(code=400,message='check token')
+#     data=request.get_json()
+#     user_id=user.get('id')
 
-    title=data.get('title')
-    #category=data.get('category')
-    problem_id=data.get('problem_id')
-    if title==None or  problem_id==None:
-        return jsonify(code=400,message='매개변수가 비어있습니다')
+#     title=data.get('title')
+#     #category=data.get('category')
+#     problem_id=data.get('problem_id')
+#     if title==None or  problem_id==None:
+#         return jsonify(code=400,message='매개변수가 비어있습니다')
     
-    workbooks=wrong_anser_note_db.find({'user_id':user_id})
-    for i in workbooks:
-        return jsonify(code=403,message='이미 오답노트가 존재합니다')
-    wrong_anser_note_db.insert({'title':title,'user_id':user_id,'problem_id':problem_id})
-    return jsonify(code=200,message='성공')
+#     workbooks=wrong_anser_note_db.find({'user_id':user_id})
+#     for i in workbooks:
+#         return jsonify(code=403,message='이미 오답노트가 존재합니다')
+#     wrong_anser_note_db.insert({'title':title,'user_id':user_id,'problem_id':problem_id})
+#     return jsonify(code=200,message='성공')
 
 @problem_api.route('/deleteWrongNote',methods=['POST'])
 @login_required
@@ -163,10 +163,15 @@ def addWrongNote(user):
     
     for workbook in workbooks:
         workbook_list=workbook['problem_id']
-    print(workbook_list)
-    workbook_list=list(set(workbook_list+problems))
+        workbook_list=list(set(workbook_list+problems))
+        wrong_anser_note_db.update({'user_id':user_id},{'user_id':user_id,'problem_id':workbook_list})
+        return jsonify(code=200,message='success')
+
     
-    wrong_anser_note_db.update({'user_id':user_id},{'user_id':user_id,'title':workbook['title'],'problem_id':workbook_list})
+    workbook_list=list(set(problems))
+    wrong_anser_note_db.insert({'user_id':user_id,'problem_id':workbook_list})
+    
+    
     
 
 
