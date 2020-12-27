@@ -155,6 +155,7 @@ def addWrongNote(user):
     data=request.get_json()
     try:
         problems=data.get('problem')
+        problems=problems.get('Id')
         problems=list(problems)
     except Exception as e:
         return jsonify(code=403,message='error',error_message=str(e))
