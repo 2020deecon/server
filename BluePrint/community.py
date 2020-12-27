@@ -112,7 +112,7 @@ def searchProblem():
     problem_list=[]
     for i in problems:
         i['id']=str(i['_id'])
-        del i[_id]
+        del i['_id']
         problem_list.append(i)
     return jsonify(code=200,data=problem_list)
 @comunity_api.route('/makeComment',methods=['POST'])
