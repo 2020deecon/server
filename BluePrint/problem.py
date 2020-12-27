@@ -176,10 +176,6 @@ def addWrongNote(user):
     workbook_list=list(set(problems))
     wrong_anser_note_db.insert({'user_id':user_id,'problem_id':workbook_list})
     
-    
-    
-
-
     return jsonify(code=200,message='success')
 
 @problem_api.route('/sendWrongNote',methods=['GET'])
@@ -190,10 +186,14 @@ def sendWrongNote(user):
     user_id=user.get('id')
     workbooks=wrong_anser_note_db.find({'user_id':user_id})
     workbook_list=[]
+    problem_id=[]
     for workbook in workbooks:
+        problem_id=workbook['problem_id']
+    for i in problem_id:
         
-        workbook.pop('_id', None)
-        workbook_list.append(workbook)
+        problem=problem_db.find({'_id':ObjectId(i)})
+        del problem['_id']
+        workbook_list.append(problem)
     return jsonify(code=200,data=workbook_list)
 
 @problem_api.route('/sendMineWorkbook',methods=['GET'])
