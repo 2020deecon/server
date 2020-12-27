@@ -31,9 +31,12 @@ def makePost(data):
     image=data.get('image')
     text=data.get('text')
     post_type=data.get('type')
+
+    problem_id=data.get('problem_id')
+
     if title==None   or text==None:
         return jsonify(code=400,message='매개변수가 비었습니다')
-    comunity_db.insert({'type':post_type,'write_id':user_id,'time':getDateTime(),'title':title,'image':image,'text':text})
+    comunity_db.insert({'type':post_type,'write_id':user_id,'time':getDateTime(),'title':title,'image':image,'text':text,'problem_id':problem_id})
     return jsonify(code=200,message='성공')
 
 @comunity_api.route('/sendPost',methods=['GET'])
@@ -115,6 +118,7 @@ def searchProblem():
         del i['_id']
         problem_list.append(i)
     return jsonify(code=200,data=problem_list)
+
 @comunity_api.route('/makeComment',methods=['POST'])
 @login_required
 def makeComment(data):

@@ -10,8 +10,7 @@ class Dialogflow:
         scope=['https://www.googleapis.com/auth/dialogflow']
         
 
-        self.creds = service_account.Credentials.from_service_account_file(
-                client_secret)
+        self.creds = service_account.Credentials.from_service_account_file(client_secret)
         self.creds=self.creds.with_scopes(scope)
         
         self.refresh_token()
