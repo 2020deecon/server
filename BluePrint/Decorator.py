@@ -9,25 +9,25 @@ def login_required(f):
     def get_user(user_id):
         x = auth.find_one({'id':user_id})
         return x
-    									# 1)
-    @wraps(f)                   								# 2)
+    									
+    @wraps(f)                   								
     def decorated_function(*args, **kwargs):
         user_info=[]
         payload='init'					
-        access_token = request.headers.get('Authorization') 	# 3)
-        if access_token is not None:  							# 4)
+        access_token = request.headers.get('Authorization') 	
+        if access_token is not None:  							
             try:    
-                payload = jwt.decode(access_token, config, algorithms=['HS256'])			   # 5)
+                payload = jwt.decode(access_token, config, algorithms=['HS256'])			   
             except jwt.InvalidTokenError as e:
                 payload = None   
 
-            if payload is None: return jsonify(messege='need Authorization',status=401)  	# 7)
+            if payload is None: return jsonify(messege='need Authorization',status=401)  	
             
-            user_id   = payload['user_id']  					# 8)
+            user_id   = payload['user_id']  					
             # user_id = user_id
             user    = get_user(user_id) if user_id else None
         else:
-            return jsonify(messege='There is not Access Token',status=401)  	# 7) 						# 9)
+            return jsonify(messege='There is not Access Token',status=401)  	
 
         return f(user,*args, **kwargs)
     return decorated_function
