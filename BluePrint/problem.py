@@ -166,7 +166,7 @@ def addWrongNote(user):
     print(workbook_list)
     workbook_list=list(set(workbook_list+problems))
     
-    wrong_anser_note_db.update({'user_id':user_id},{'problem_id':workbook_list})
+    wrong_anser_note_db.update({'user_id':user_id},{'user_id':user_id,'title':workbook['title'],'problem_id':workbook_list})
     
 
 
