@@ -128,8 +128,47 @@ def wrongNote(user):
     if title==None or category==None or problem_id==None:
         return jsonify(code=400,message='매개변수가 비어있습니다')
     
+    workbooks=wrong_anser_note_db.find({'user_id':user_id})
+    for i in workbooks:
+        return jsonify(code=403,message='이미 오답노트가 존재합니다')
     wrong_anser_note_db.insert({'title':title,'user_id':user_id,'category':category,'problem_id':problem_id})
     return jsonify(code=200,message='성공')
+
+@problem_api.route('/deleteWrongNote',methods=['POST'])
+@login_required
+def deleteWrongNote(user):
+    if user==None:
+        return jsonify(code=400,message='check token')
+    user_id=user.get('id')
+    wrong_anser_note_db.remove({'user_id':user_id})
+    return jsonify(code=200,message='success')
+
+@problem_api.route('/addWrongNote',methods=['POST'])
+@login_required
+def addWrongNote(user):
+    if user==None:
+        return jsonify(code=400,message='check token')
+    user_id=user.get('id')
+
+    workbooks=wrong_anser_note_db.find({'user_id':user_id})
+    
+    data=request.get_json()
+    try:
+        problems=data.get('problem')
+        problems=list(problems)
+    except Exception as e:
+        return jsonify(code=403,message='error',error_message=str(e))
+    
+    workbook_list=[]
+    
+    for workbook in workbooks:
+        workbook_list=workbook['problem_id']
+    wrong_anser_note_db.update({'user_id':user_id},{'problem_id':workbook_list})
+    
+    workbook_list=list(set(workbook_list+problems))
+
+
+    return jsonify(code=200,message='success')
 
 @problem_api.route('/sendWrongNote',methods=['GET'])
 @login_required
