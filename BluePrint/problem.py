@@ -182,7 +182,7 @@ def sendWrongNote(user):
     workbook_list=[]
     for workbook in workbooks:
         
-        workbook.pop('key', None)
+        workbook.pop('_id', None)
         workbook_list.append(workbook)
     return jsonify(code=200,data=workbook_list)
 
