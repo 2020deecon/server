@@ -191,7 +191,7 @@ def sendWrongNote(user):
         problem_id=workbook['problem_id']
     for i in problem_id:
         
-        problem=problem_db.find({'_id':ObjectId(i)})
+        problem=problem_db.find_one({'_id':ObjectId(i)})
         del problem['_id']
         workbook_list.append(problem)
     return jsonify(code=200,data=workbook_list)
