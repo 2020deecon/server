@@ -155,8 +155,12 @@ def addWrongNote(user):
     data=request.get_json()
     try:
         problems=data.get('problem')
-        problems=problems.get('Id')
-        problems=list(problems)
+        problem_list=[]
+        for i in problems:
+            problem_list.append(i.get('Id'))
+            
+        problems=problem_list
+        
     except Exception as e:
         return jsonify(code=403,message='error',error_message=str(e))
     
